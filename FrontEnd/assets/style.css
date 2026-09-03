@@ -3,6 +3,10 @@
    License: none (public domain)
 */
 
+
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shrikhand&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -82,7 +86,8 @@ h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: #1D6154;
+
 }
 nav ul {
 	display: flex;
@@ -97,6 +102,11 @@ nav li {
 
 li:hover {
 	color: #B1663C;
+}
+
+nav a {
+	text-decoration: none;
+	color: inherit;
 }
 #introduction {
 	display: flex;
@@ -132,6 +142,40 @@ li:hover {
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
+
+
+
+.filter {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 40px;
+	gap: 15px;
+	
+
+}
+
+
+
+.filter_ul {
+display: flex;
+justify-content: space-between;
+gap: 15px;
+
+}
+
+
+.filter_li {
+border: #1D6154 1px solid;
+border-radius: 60px;
+padding: 7px 15px;
+font-size: 16px;
+font-style: bold;
+color: #1D6154;
+
+
+}
+
+
 
 .gallery img {
 	width: 100%;
@@ -184,5 +228,185 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+
+
+
+#edit-bar {
+	display: none;
+	background: #000000;
+	height: 59px;
+	color: white;
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+	justify-content: center;
+	align-items: center;
+	font-size: 16px;
+	font-weight: 400;
+	font-family: 'Work Sans';
+	
+}
+
+
+#edit-bar img {
+	filter: invert(100%);
+
+}
+
+
+
+#edit-bar p {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+
+
+
+
+.projet-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 180px;
+	margin-bottom: 80px;
+	gap: 30px;
+}
+
+
+#edit-btn {
+    display: none; 
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+	font-size: 14px;
+	font-weight: 400;
+	font-family: 'Work Sans';
+}
+
+
+.projet-button h2 {
+    margin: 0 !important;
+    padding: 0;
+    line-height: 1;
+}
+
+
+
+
+
+.modal-background {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ display: none;
+ justify-content: center;
+ align-items: center;
+ background-color: rgba(0, 0, 0, 0.5);
+ 
+}
+
+
+.modal {
+	position: relative;
+	background-color: white;
+	width: 630px;
+	height: 635px;
+	border-radius: 10px;
+	padding: 20px;
+	max-width: 90%;
+}
+
+
+.modal-cross {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+
+
+#title-modal {
+
+	display: flex;
+	justify-content: center;
+	font-size: 26px;
+	font-weight: 400;
+	font-family: 'Work Sans';
+	color: #000000;
+	margin-top: 60px;
+}
+
+
+
+.modal-img {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	margin-top: 45px;
+	padding: 0 65px 0 65px;
+}
+
+
+.project-img {
+	width: 78.12px;
+	height: 104px;
+	padding-bottom: 15px;
+}
+
+
+
+.btn-container {
+	display: flex;
+	justify-content: center;
+	border-top: 1px solid #B3B3B3;
+	margin-top: 47px;
+	padding-top: 25px;
+}
+
+.add-img {
+	width: 237px;
+	height: 36px;
+	border-radius: 60px;
+	border: none;
+	background: #1D6154;
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: 700;
+	font-family: 'Syne';
+	
+
+
+
+}
+
+
+
+.modal-img figure {
+    position: relative;
+    margin: 0; 
+}
+
+.trash-btn {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	width: 17px !important;
+	height: 17px !important;
+	background-color: black;
+	padding: 4px;
+	border-radius: 2px;
+	cursor: pointer;
+	box-sizing: border-box;
+	object-fit: cover;
 }
 
