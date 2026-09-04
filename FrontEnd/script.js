@@ -319,3 +319,69 @@ left.addEventListener('click', () => {
     galleryView.style.display = 'block'
 })
 
+
+
+
+const imageUpload = document.getElementById('image-upload');
+const blockAddImg = document.querySelector('.block-add-img');
+
+
+imageUpload.addEventListener('change', () => {
+const file = imageUpload.files[0];
+
+
+
+    if (file.size > 4 * 1024 * 1024) {
+        alert("L'image est trop grande (4mo maximum");
+        imageUpload.value = ''; // réinitialisation du champ
+        return // on stop 
+    }
+
+
+
+    const imageUrl = URL.createObjectURL(file); // url temp pr l'aperçu
+
+    // ensuite on vide le contenu de lu block
+    blockAddImg.innerHTML = '';
+
+    // on met l'image dynamisquement
+    const previewImg = document.createElement('img')
+    previewImg.src = imageUrl;
+
+
+    previewImg.style.width = '100%'
+    previewImg.style.height = '100%'
+    previewImg.style.objectFit = 'cover'
+    previewImg.style.borderRadius = '3px'
+
+
+    blockAddImg.appendChild(previewImg);
+})
+
+
+
+
+async function chargerCategoriesFormulaire() {
+    try {
+        const response = await fetch("http://localhost:5678/api/categories");
+        const categories = await response.json(); 
+
+        const selectCategorie = document.getElementById('categorie');
+
+        // option vide par defaut
+
+        selectCategorie.innerHTML = '<option value="" disabled selected></option>';
+
+        //création vrai option depûios api 
+
+        categories.forEach(categorie => {
+            const option = document.createElement('option');
+            option.value = categorie.id;
+            option.innerText = categorie.name;
+            selectCategorie.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Erreur lors du changement des catégories :", error)
+    }
+}
+chargerCategoriesFormulaire();
