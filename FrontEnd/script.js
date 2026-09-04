@@ -302,5 +302,20 @@ modalImgContainer.appendChild(figure);
 }
 
 
+const btnAddPhoto = document.querySelector('.add-img')
+const galleryView = document.querySelector('.modal')
+const formView = document.querySelector('.modal-form')
+const left = document.querySelector('.form-left')
 
+
+
+btnAddPhoto.addEventListener('click', () => {
+    galleryView.style.display = 'none';
+    formView.style.display = 'block';
+});
+
+left.addEventListener('click', () => {
+    formView.style.display = 'none';
+    galleryView.style.display = 'block'
+})
 

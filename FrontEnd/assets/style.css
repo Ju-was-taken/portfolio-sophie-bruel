@@ -410,3 +410,133 @@ footer nav ul {
 	object-fit: cover;
 }
 
+
+
+
+.modal-form {
+	display: none;
+	position: relative;
+	background-color: white;
+	width: 630px;
+	height: 635px;
+	border-radius: 10px;
+	padding: 20px;
+	max-width: 90%;
+}
+
+
+
+.form-left {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+
+
+
+#add-work-form {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	width: 420px;
+	margin: 0 auto;
+	margin-top: 36px;
+
+}
+
+
+
+.block-add-img {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #E8F1F6;
+}
+
+.block-add-img img {
+	padding-top: 7px;
+}
+
+#image-upload {
+display: none;
+}
+
+.add-img-btn {
+    background-color: #cbd6dc; 
+    color: #306685;            
+    padding: 10px 33px;
+    border-radius: 50px;      
+    font-weight: 500;
+    cursor: pointer;           
+    margin: 15px 0; 
+	font-family: 'Work Sans';
+	font-weight: 500;
+	font-size: 14px;           
+}
+
+#add-work-form .block-add-img p {
+	font-family: 'Work Sans';
+	font-weight: 400;
+	font-size: 10px;
+	color: #444444;
+	padding-bottom: 18px;
+}
+
+
+.block-add-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    background-color: #E8F1F6;
+    height: 169px;
+    border-radius: 3px;
+    margin-bottom: 30px;
+}
+
+
+#add-work-form label {
+    font-family: 'Work Sans';
+    font-weight: 500;
+    font-size: 14px;
+    color: #3D3D3D;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+
+#add-work-form input[type="text"], 
+#add-work-form select {
+    height: 50px;
+    border: none;
+    background-color: white;
+
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09); 
+    font-family: 'Work Sans';
+    font-size: 14px;
+    color: #444444;
+    padding: 0 15px; 
+    outline: none; 
+}
+
+
+.btn-container {
+    border-top: 1px solid #B3B3B3; 
+    margin-top: 45px;
+    padding-top: 30px;
+    display: flex;
+    justify-content: center; 
+}
+
+.valider {
+    background-color: #A7A7A7;
+    color: white;
+    font-family: 'Syne';
+    font-weight: 700;
+    font-size: 14px;
+    border: none;
+    border-radius: 50px;
+    width: 237px;
+    height: 36px;
+    cursor: pointer;
+}
