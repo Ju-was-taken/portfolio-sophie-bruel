@@ -385,3 +385,42 @@ async function chargerCategoriesFormulaire() {
     }
 }
 chargerCategoriesFormulaire();
+
+
+
+
+const formVerif = document.querySelector('#add-work-form')
+
+
+
+formVerif.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target)
+
+
+const token = window.localStorage.getItem("token");
+
+
+try {
+
+const response = await fetch(`http://localhost:5678/api/works`,  {
+    method: 'POST',
+    headers: {
+        "Authorization": `Bearer ${token}`
+    },
+    body: formData
+});
+
+
+if (response.ok) {
+    event.target.reset()
+    blockAddImg.innerHTML = '';
+    modalBackgrounds.style.display = 'none'
+
+    document.querySelector('.gallery').innerHTML = '';
+    afficherBackend();
+} else {
+    console.log("Erreur dans le processus d'ajout")
+}} catch (error) {
+    console.error("Erreur de connexion à l'API :", error);
+}})
