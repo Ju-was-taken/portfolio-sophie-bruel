@@ -4,26 +4,12 @@ const gallery = document.querySelector(".gallery");
 
 async function afficherBackend() {
     try {  
-    const api = await fetch("http://localhost:5678/api/works")
-    const works = await api.json()
+
+const works = await getWorks()
+
+genererGalerie(works)
 
 
-    works.forEach(work => {
-        const figure = document.createElement('figure')
-        const img = document.createElement('img')
-        const figcaption = document.createElement('figcaption')
-
-
-
-
-        img.src = work.imageUrl
-        img.alt = work.title
-        figcaption.innerText = work.title;
-
-        figure.appendChild(img);
-        figure.appendChild(figcaption);
-        gallery.appendChild(figure);
-    });
 } catch (error) {
     console.error("Erreur lors de la recupération ", error);
 }
@@ -32,98 +18,27 @@ afficherBackend()
 
 
 
+async function getWorks() {
+    try {
+    const api = await fetch("http://localhost:5678/api/works")
+    const works = await api.json()
+        return works;
+
+    } catch(error) {
+            console.error("Erreur lors de la recupération ", error);
+    }
+}
+
+
+
 const div = document.querySelector('.filter')
 
-async function afficherFiltre () {
-    try {
 
-        const response = await fetch("http://localhost:5678/api/categories")
-        const categories = await response.json()
+function genererGalerie(projets) {
 
+    document.querySelector(".gallery").innerHTML="";
 
-
-        const tous = document.createElement('button');
-        tous.innerText = 'Tous'
-        tous.classList.add('filter_li')
-        tous.classList.add('btn-tous')
-
-
-        div.appendChild(tous)
-
-
-
-        tous.addEventListener('click', () => {
-            console.log("Tu as cliqué sur le bouton Tous !");
-        })
-
-        categories.forEach( categorie  => {
-            const button = document.createElement('button')
-            button.innerText = categorie.name
-           button.classList.add('filter_li')
-            div.appendChild(button)
-        
-
-            button.addEventListener('click', async () => {
-                document.querySelector(".gallery").innerHTML = "";
-
-                const responseWorks = await fetch("http://localhost:5678/api/works");
-                const works = await responseWorks.json();
-
-                const projetFiltre = works.filter(work => work.categoryId === categorie.id)
-
-
-                console.log(projetFiltre)
-
-
-                projetFiltre.forEach( work => {
-
-
-
-                            const figure = document.createElement('figure')
-                            const img = document.createElement('img')
-                            const figcaption = document.createElement('figcaption')
-
-
-                            img.src = work.imageUrl
-                            figcaption.innerText = work.title
-
-
-                            figure.appendChild(img)
-                            figure.appendChild(figcaption)
-
-                            document.querySelector(".gallery").appendChild(figure)
-
-
-
-
-                })
-
-
-
-
-
-
-
-                const boutonTous = document.querySelector('.btn-tous')
-
-
-                boutonTous.addEventListener('click', async () => {
-
-
-
-                                    const responseWorks = await fetch("http://localhost:5678/api/works");
-                                    const works = await responseWorks.json();
-
-
-
-
-
-
-
-
-                document.querySelector(".gallery").innerHTML="";
-
-                        works.forEach( work => {
+     projets.forEach( work => {
 
                             
 
@@ -146,16 +61,38 @@ async function afficherFiltre () {
 
                 })
 
-                })
-            })
+    
+}
 
-        })
+async function afficherFiltre () {
+    try {
+        const response = await fetch("http://localhost:5678/api/categories");
+        const categories = await response.json();
 
+  
+        const tous = document.createElement('button');
+        tous.innerText = 'Tous';
+        tous.classList.add('filter_li', 'btn-tous');
+        div.appendChild(tous);
 
+        tous.addEventListener('click', async () => {
+            const works = await getWorks(); 
+            genererGalerie(works);          
+        });
 
-
-
-
+        //Création et gestion des boutons de catégories
+        categories.forEach(categorie => {
+            const button = document.createElement('button');
+            button.innerText = categorie.name;
+            button.classList.add('filter_li');
+            div.appendChild(button);
+        
+            button.addEventListener('click', async () => {
+                const works = await getWorks(); 
+                const projetFiltre = works.filter(work => work.categoryId === categorie.id);
+                genererGalerie(projetFiltre);   
+            });
+        });
 
     } catch (error) {
         console.error("Erreur lors de la récupération des catégories :", error);
@@ -281,6 +218,7 @@ async function afficherGalerieModal() {
         if (response.ok) {
             figure.remove();
             console.log("Projet supprimé");
+            afficherBackend()
         } else {
             console.log("Supression")
         }
@@ -289,9 +227,7 @@ async function afficherGalerieModal() {
     }
 });
 
-figure.appendChild(img);
-figure.appendChild(trashIcon);
-modalImgContainer.appendChild(figure);
+
 
 
 
