@@ -176,6 +176,12 @@ color: #1D6154;
 }
 
 
+.filter-active {
+	background-color: #1D6154;
+	color: white;
+}
+
+
 
 .gallery img {
 	width: 100%;

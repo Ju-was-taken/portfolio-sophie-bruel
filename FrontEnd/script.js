@@ -2,19 +2,19 @@
 
 const gallery = document.querySelector(".gallery");
 
-async function afficherBackend() {
+async function displayBackend() {
     try {  
 
 const works = await getWorks()
 
-genererGalerie(works)
+displayWorks(works)
 
 
 } catch (error) {
     console.error("Erreur lors de la recupération ", error);
 }
 }
-afficherBackend()
+displayBackend()
 
 
 
@@ -30,11 +30,22 @@ async function getWorks() {
 }
 
 
+async function getCategories() {
+    try {
+        const response = await fetch("http://localhost:5678/api/categories");
+        const categories = await response.json();
+        return categories;
+    } catch (error) {
+        console.error("Erreur logique :", error);
+    }
+}
+
+
 
 const div = document.querySelector('.filter')
 
 
-function genererGalerie(projets) {
+function displayWorks(projets) {
 
     document.querySelector(".gallery").innerHTML="";
 
@@ -64,20 +75,34 @@ function genererGalerie(projets) {
     
 }
 
-async function afficherFiltre () {
+
+function activeFilter(clicked) {
+    const filters = document.querySelectorAll('.filter_li')
+
+    filters.forEach((button) => {
+        if (clicked === button) {
+            button.classList.add('filter-active')
+        }else {
+            button.classList.remove('filter-active')
+        }
+    })
+}
+
+async function displayCategories () {
     try {
-        const response = await fetch("http://localhost:5678/api/categories");
-        const categories = await response.json();
+
+        const categories = await getCategories();
 
   
         const tous = document.createElement('button');
         tous.innerText = 'Tous';
-        tous.classList.add('filter_li', 'btn-tous');
+        tous.classList.add('filter_li', 'filter-active');
         div.appendChild(tous);
 
         tous.addEventListener('click', async () => {
             const works = await getWorks(); 
-            genererGalerie(works);          
+            displayWorks(works);  
+            activeFilter(tous)        
         });
 
         //Création et gestion des boutons de catégories
@@ -90,7 +115,8 @@ async function afficherFiltre () {
             button.addEventListener('click', async () => {
                 const works = await getWorks(); 
                 const projetFiltre = works.filter(work => work.categoryId === categorie.id);
-                genererGalerie(projetFiltre);   
+                displayWorks(projetFiltre);   
+                activeFilter(button)
             });
         });
 
@@ -101,7 +127,10 @@ async function afficherFiltre () {
 
 
 
-afficherFiltre()
+displayCategories()
+
+
+
 
 
 
@@ -137,7 +166,7 @@ const modalBackgrounds = document.querySelector('.modal-background');
 const modalCorss = document.querySelector('.modal-cross');
 
 button.addEventListener('click', () => {
-    afficherGalerieModal();
+    displayModalWorks();
     modalBackgrounds.style.display = 'flex';
 });
 
@@ -162,12 +191,12 @@ modalBackgrounds.addEventListener('click', (event) => {
 
 const modalImgContainer = document.querySelector('.modal-img');
 
-async function afficherGalerieModal() {
+async function displayModalWorks() {
     try {
         modalImgContainer.innerHTML = "";
 
-        const response = await fetch ("http://localhost:5678/api/works");
-        const works = await response.json();
+
+        const works = await getWorks()
 
 
 
@@ -218,7 +247,7 @@ async function afficherGalerieModal() {
         if (response.ok) {
             figure.remove();
             console.log("Projet supprimé");
-            afficherBackend()
+            displayBackend()
         } else {
             console.log("Supression")
         }
@@ -249,6 +278,33 @@ btnAddPhoto.addEventListener('click', () => {
     galleryView.style.display = 'none';
     formView.style.display = 'block';
 });
+
+
+
+const titleInput = document.getElementById('title');
+    const categorySelect = document.getElementById('categorie');
+    const imageInput = document.getElementById('image-upload');
+    const validerBtn = document.querySelector('.valider');
+
+    if (titleInput && categorySelect && imageInput && validerBtn) {
+        
+        function checkForm() {
+            if (titleInput.value !== "" && categorySelect.value !== "" && imageInput.files.length > 0) {
+                validerBtn.style.backgroundColor = '#1D6154';
+                validerBtn.style.color = 'white';
+            } else {
+                validerBtn.style.backgroundColor = '#A7A7A7'
+            }
+        }
+
+        titleInput.addEventListener('input', checkForm);
+        categorySelect.addEventListener('change', checkForm);
+        imageInput.addEventListener('change', checkForm);
+        
+    } else {
+        console.error("Bug de ciblage persistant : vérifier les ID HTML.");
+    }
+
 
 left.addEventListener('click', () => {
     formView.style.display = 'none';
@@ -297,7 +353,7 @@ const file = imageUpload.files[0];
 
 
 
-async function chargerCategoriesFormulaire() {
+async function loadFormCategories() {
     try {
         const response = await fetch("http://localhost:5678/api/categories");
         const categories = await response.json(); 
@@ -320,7 +376,8 @@ async function chargerCategoriesFormulaire() {
         console.error("Erreur lors du changement des catégories :", error)
     }
 }
-chargerCategoriesFormulaire();
+loadFormCategories();
+
 
 
 
@@ -354,7 +411,7 @@ if (response.ok) {
     modalBackgrounds.style.display = 'none'
 
     document.querySelector('.gallery').innerHTML = '';
-    afficherBackend();
+    displayWorks();
 } else {
     console.log("Erreur dans le processus d'ajout")
 }} catch (error) {
