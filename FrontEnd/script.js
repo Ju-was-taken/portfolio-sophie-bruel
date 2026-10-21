@@ -2,19 +2,19 @@
 
 const gallery = document.querySelector(".gallery");
 
-async function displayBackend() {
-    try {  
+// async function displayBackend() {
+//     try {  
 
-const works = await getWorks()
+// const works = await getWorks()
 
-displayWorks(works)
+// displayWorks(works)
 
 
-} catch (error) {
-    console.error("Erreur lors de la recupération ", error);
-}
-}
-displayBackend()
+// } catch (error) {
+//     console.error("Erreur lors de la recupération ", error);
+// }
+// }
+// displayBackend()
 
 
 
@@ -22,7 +22,10 @@ async function getWorks() {
     try {
     const api = await fetch("http://localhost:5678/api/works")
     const works = await api.json()
+        console.table(works)
+        displayWorks(works)
         return works;
+        
 
     } catch(error) {
             console.error("Erreur lors de la recupération ", error);
@@ -92,6 +95,7 @@ async function displayCategories () {
     try {
 
         const categories = await getCategories();
+        console.table(categories)
 
   
         const tous = document.createElement('button');
@@ -117,6 +121,7 @@ async function displayCategories () {
                 const projetFiltre = works.filter(work => work.categoryId === categorie.id);
                 displayWorks(projetFiltre);   
                 activeFilter(button)
+                
             });
         });
 
@@ -247,7 +252,7 @@ async function displayModalWorks() {
         if (response.ok) {
             figure.remove();
             console.log("Projet supprimé");
-            displayBackend()
+            getWorks()
         } else {
             console.log("Supression")
         }
@@ -300,6 +305,8 @@ const titleInput = document.getElementById('title');
         titleInput.addEventListener('input', checkForm);
         categorySelect.addEventListener('change', checkForm);
         imageInput.addEventListener('change', checkForm);
+
+        checkForm()
         
     } else {
         console.error("Bug de ciblage persistant : vérifier les ID HTML.");
@@ -355,8 +362,8 @@ const file = imageUpload.files[0];
 
 async function loadFormCategories() {
     try {
-        const response = await fetch("http://localhost:5678/api/categories");
-        const categories = await response.json(); 
+       
+        const categories = await getCategories(); 
 
         const selectCategorie = document.getElementById('categorie');
 
@@ -407,13 +414,19 @@ const response = await fetch(`http://localhost:5678/api/works`,  {
 
 if (response.ok) {
     event.target.reset()
-    blockAddImg.innerHTML = '';
+    blockAddImg.innerHTML = `  <img src="./assets/icons/picture-svgrepo-com 1.png" alt="">
+
+			<label for="image-upload" class="add-img-btn">+ Ajouter photo</label>
+        
+          <p>jpg, png : 4mo max</p>`;
     modalBackgrounds.style.display = 'none'
 
-    document.querySelector('.gallery').innerHTML = '';
-    displayWorks();
+    getWorks()
 } else {
     console.log("Erreur dans le processus d'ajout")
 }} catch (error) {
     console.error("Erreur de connexion à l'API :", error);
 }})
+
+
+getWorks()
