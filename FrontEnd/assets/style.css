@@ -305,7 +305,9 @@ footer nav ul {
 }
 
 
-
+.project-img {
+	object-fit: cover;
+}
 
 
 .modal-background {
@@ -337,6 +339,13 @@ footer nav ul {
 	position: absolute;
 	top: 20px;
 	right: 20px;
+}
+
+.form-cross {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
 }
 
 
