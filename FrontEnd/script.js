@@ -107,6 +107,8 @@ const modalCorss = document.querySelector('.modal-cross');
 button.addEventListener('click', () => {
     displayModalWorks();
     modalBackgrounds.style.display = 'flex';
+    galleryView.style.display = 'block'; 
+    formView.style.display = 'none';
 });
 // on ferme le modal au clic sur croix
 modalCorss.addEventListener('click', () => {

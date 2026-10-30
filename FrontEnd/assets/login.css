@@ -25,7 +25,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	
-    background: #FFFEF8;
+    background: #fdfbf1;
 }
 ol, ul {
 	list-style: none;
@@ -48,6 +48,7 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	
 }
 header {
 	display: flex;
@@ -164,6 +165,12 @@ footer {
     align-items: center; 
     justify-content: flex-end;
     margin-top: 150px; 
+
+	width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+	
 }
 
 

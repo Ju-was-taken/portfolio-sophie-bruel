@@ -21,5 +21,8 @@ form.addEventListener('submit', async (event) => {
         window.location.href = "index.html"
     } else {
         alert("Erreur dans l'identifiant ou le mot de passe")
+
+        
+        
     }
 })
